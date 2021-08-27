@@ -1,0 +1,28 @@
+.Navbar {
+    background-color: #fff !important;
+}
+.navbar-brand {
+    font-size: 1.7rem !important;
+    color: rgb(27, 25, 25);
+}
+.navbar a {
+    font-size: 1.1rem;
+    text-transform: capitalize;
+}
+.menu-active {
+    font-weight: bold;
+    border-bottom: 1px solid rgb(27, 25, 25);
+}
+.navbar a:hover {
+    color: black !important;
+}
+
+@media (max-width: 991px){
+    .navbar-brand{
+      font-size: 1.3rem !important;
+    }
+    .menu-active {
+      font-weight: bold;
+      border-bottom: none;
+    }
+  }
