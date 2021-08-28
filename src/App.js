@@ -21,7 +21,7 @@ function App() {
         <Route path="/addStudent">
           <AddStudent />
         </Route>
-        <Route path="/updateStudent">
+        <Route path="/updateStudent/:id">
           <UpdateStudentDetails />
         </Route>
       </Switch>

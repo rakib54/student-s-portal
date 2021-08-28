@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Link, useHistory } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import './AllStudents.css'
 
 
@@ -8,16 +8,19 @@ const AllStudents = () => {
     const [studentData, setStudentData] = useState([])
     const [search, setSearch] = useState('')
     const [isDelete, setIsDelete] = useState(false)
-    const history = useHistory()
+    // const [sort, setSort] = useState([])
+    
 
     useEffect(() => {
         fetch('http://localhost:4000/students?search='+ search)
             .then(res => res.json())
             .then(data => {
                 setStudentData(data)
-
+                // setSort(studentData.sort((a,b) => (a.name > b.name) ? 1 : ((b.name > a.name) ? -1 : 0)))
+                // console.log(sort);
             })
-    }, [isDelete,search])
+            
+    }, [isDelete,search,studentData])
 
     const handleSearch = (e) => {
         setSearch(e.target.value)
@@ -34,23 +37,13 @@ const AllStudents = () => {
             })
     }
 
-    const handleUpdate = (id) => {
-        fetch(`http://localhost:4000/updateStudent/${id}`,{
-            method:'PUT'
-        })
-        .then(res => res.json())
-        .then(data => {
-            setStudentData(data)
-            console.log(data);
-            history.push('/')
-        } )
-    }
+    
 
     return (
         <div className="student-container">
             <h2 className="text-center">All Students List</h2>
             <div className="col-md-3 col-3 mx-auto mt-3">
-                <input onChange={handleSearch} className="form-control" type="text" placeholder="search Student" />
+                <input onChange={handleSearch} className="form-control" type="text" placeholder="search name" />
             </div>
             <div className="container-fluid">
                 <table className="table mt-3">
@@ -72,7 +65,7 @@ const AllStudents = () => {
                                     <td>{s.registration}</td>
                                     <td>{s.ID}</td>
                                     <td><img style={{ height: '50px' }} src={s.imageUrl} alt="" /></td>
-                                    <td><Link to="/updateStudent" onClick={() => handleUpdate(s._id)} className="btn btn-success">Edit</Link></td>
+                                    <td><Link to={`/updateStudent/${s._id}`}  className="btn btn-success">Edit</Link></td>
                                     <td><button onClick={() => handleDelete(s._id)} className="btn btn-danger">delete</button></td>
                                 </tr>
                             })

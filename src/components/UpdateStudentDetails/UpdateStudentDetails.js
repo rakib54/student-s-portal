@@ -1,27 +1,30 @@
 import axios from 'axios';
 import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { useHistory } from 'react-router-dom';
+import { useHistory, useParams } from 'react-router-dom';
 import Navbar from '../Navbar/Navbar';
 
 const UpdateStudentDetails = () => {
     const [studentData, setStudentData] = useState()
     const [imageUrl, setImageUrl] = useState(null)
+    const { id } = useParams()
+    console.log(id);
 
     const history = useHistory()
 
     const { register, handleSubmit, formState: { errors } } = useForm();
     const onSubmit = (data) => {
-        const StudentInfo = {
+        console.log(data);
+        const studentInfo = {
             name: data.name,
             registration: data.registration,
             ID: data.ID,
             imageUrl: imageUrl
         }
-        fetch('http://localhost:4000/updateStudent', {
-            method: 'PUT',
+        fetch('http://localhost:4000/updateStudent/' + id, {
+            method: 'POST',
             headers: { 'content-type': 'application/json' },
-            body: JSON.stringify(StudentInfo)
+            body: JSON.stringify(studentInfo)
         })
             .then(res => res.json())
             .then(data => {
@@ -39,7 +42,7 @@ const UpdateStudentDetails = () => {
 
         axios.post(`https://api.imgbb.com/1/upload`, imageData)
             .then((res) => {
-                console.log(res);
+                // console.log(res);
                 setImageUrl(res.data.data.image.url)
             })
             .catch(err => {
