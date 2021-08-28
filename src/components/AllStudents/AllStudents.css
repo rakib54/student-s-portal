@@ -1,0 +1,10 @@
+.student-container {
+    margin-top: 50px;
+}
+
+@media (max-width: 750px) {
+    .student-container{
+        margin-top: 100px;
+    }
+
+  }
