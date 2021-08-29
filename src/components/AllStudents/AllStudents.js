@@ -12,7 +12,7 @@ const AllStudents = () => {
     
 
     useEffect(() => {
-        fetch('http://localhost:4000/students?search='+ search)
+        fetch('https://mighty-spire-72211.herokuapp.com/students?search='+ search)
             .then(res => res.json())
             .then(data => {
                 setStudentData(data)
@@ -27,7 +27,7 @@ const AllStudents = () => {
     }
 
     const handleDelete = (id) => {
-        fetch(`http://localhost:4000/deleteStudent/${id}`, {
+        fetch(`https://mighty-spire-72211.herokuapp.com/deleteStudent/${id}`, {
             method: 'DELETE'
         })
             .then(res => res.json())

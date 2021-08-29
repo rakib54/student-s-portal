@@ -19,7 +19,7 @@ const AddStudent = () => {
             ID: data.ID,
             imageUrl: imageUrl
         }
-        fetch('http://localhost:4000/addStudent', {
+        fetch('https://mighty-spire-72211.herokuapp.com/addStudent', {
             method: 'POST',
             headers: { 'content-type': 'application/json' },
             body: JSON.stringify(StudentInfo)
