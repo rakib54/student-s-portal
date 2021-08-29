@@ -9,18 +9,18 @@ const AllStudents = () => {
     const [search, setSearch] = useState('')
     const [isDelete, setIsDelete] = useState(false)
     // const [sort, setSort] = useState([])
-    
+
 
     useEffect(() => {
-        fetch('https://mighty-spire-72211.herokuapp.com/students?search='+ search)
+        fetch('https://mighty-spire-72211.herokuapp.com/students?search=' + search)
             .then(res => res.json())
             .then(data => {
                 setStudentData(data)
                 // setSort(studentData.sort((a,b) => (a.name > b.name) ? 1 : ((b.name > a.name) ? -1 : 0)))
                 // console.log(sort);
             })
-            
-    }, [isDelete,search,studentData])
+
+    }, [isDelete, search, studentData])
 
     const handleSearch = (e) => {
         setSearch(e.target.value)
@@ -37,7 +37,7 @@ const AllStudents = () => {
             })
     }
 
-    
+
 
     return (
         <div className="student-container">
@@ -57,20 +57,29 @@ const AllStudents = () => {
                             <th scope="col">delete</th>
                         </tr>
                     </thead>
-                    <tbody>
-                        {
-                            studentData.map((s) => {
-                                return <tr key={s._id}>
-                                    <th scope="row">{s.name}</th>
-                                    <td>{s.registration}</td>
-                                    <td>{s.ID}</td>
-                                    <td><img style={{ height: '50px' }} src={s.imageUrl} alt="" /></td>
-                                    <td><Link to={`/updateStudent/${s._id}`}  className="btn btn-success">Edit</Link></td>
-                                    <td><button onClick={() => handleDelete(s._id)} className="btn btn-danger">delete</button></td>
-                                </tr>
-                            })
-                        }
-                    </tbody>
+                    {
+                        studentData.length ?
+                            <tbody>
+                                {
+                                    studentData.map((s) => {
+                                        return <tr key={s._id}>
+                                            <th scope="row">{s.name}</th>
+                                            <td>{s.registration}</td>
+                                            <td>{s.ID}</td>
+                                            <td><img style={{ height: '50px' }} src={s.imageUrl} alt="" /></td>
+                                            <td><Link to={`/updateStudent/${s._id}`} className="btn btn-success">Edit</Link></td>
+                                            <td><button onClick={() => handleDelete(s._id)} className="btn btn-danger">delete</button></td>
+                                        </tr>
+                                    })
+                                }
+                            </tbody>
+                            :
+                            <div className="text-center">
+                                <div className="spinner-border" role="status">
+                                    <span className="visually-hidden">Loading...</span>
+                                </div>
+                            </div>
+                    }
                 </table>
             </div>
         </div>
